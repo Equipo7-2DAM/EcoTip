@@ -31,6 +31,8 @@ public class Usuario {
     private boolean colaborador;
     @Column(name = "fecha_nacimiento")
     private LocalDate fechaNacimiento;
+    @Column(name = "intenciones_apadrinar")
+    private Integer intencionesApadrinar;
 
     @ManyToMany(mappedBy = "usuarios")
     private List<Animal> animales = new ArrayList<>();
