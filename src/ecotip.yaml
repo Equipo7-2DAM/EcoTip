@@ -18,7 +18,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Ecosistema'
+                  $ref: '#/components/schemas/EcosistemaOutDto'
         500:
           description: Server error
           content:
@@ -108,7 +108,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Animal'
+                  $ref: '#/components/schemas/AnimalOutDto'
         500:
           description: Server error
           content:
@@ -173,6 +173,96 @@ paths:
     delete:
       summary: Delete Animal
       description: Borra animal por id
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response200'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+  /usuarios:
+    get:
+      summary: Get Usuarios
+      description: Devuelve lista de usuarios
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UsuarioOutDto'
+        500:
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+    post:
+      summary: Create Usuario
+      description: Sube un usuario nuevo
+      requestBody:
+        description: Datos de usuario
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UsuarioInDto'
+      responses:
+        201:
+          description: Usuario creado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response201'
+  /usuarios/{id}:
+    get:
+      summary: Get Usuario
+      description: Devuelve usuario por id
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsuarioDetailOutDto'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+    put:
+      summary: Update Usuario
+      description: Devuelve y edita usuario por id
+      requestBody:
+        description: Datos de usuario
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UsuarioInDto'
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response200'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+    delete:
+      summary: Delete Usuario
+      description: Borra usuario por id
       responses:
         200:
           description: Ok
@@ -292,6 +382,12 @@ components:
         apadrinado:
           type: boolean
           description: si el animal está apadrinado o no
+        ecosistema:
+          type: object
+          description: ecosistema donde vive el animal
+        usuarios:
+          type: array
+          description: lista de usuarios que apadrinan al mismo animal
     AnimalDetailOutDto:
       type: object
       properties:
@@ -358,6 +454,101 @@ components:
         apadrinado:
           type: boolean
           description: si el animal está apadrinado o no
+    Usuario:
+      type: object
+      properties:
+        id:
+          type: long
+          description: identificador de usuario
+        nombre:
+          type: string
+          description: nombre del usuario
+        apellidos:
+          type: string
+          description: Apellidos del usuario
+        dni:
+          type: string
+          description: Dni del usuario
+        email:
+          type: string
+          format: email
+          description: email de usuario
+        colaborador:
+          type: boolean
+          description: ha colaborado antes con nosotros
+        fechaNacimiento:
+          type: 'date-time'
+          description: fecha de nacimiento del usuario
+        intencionesApadrinar:
+          type: integer
+          description: número de animales que tiene intención de apadrinar
+        animales:
+          type: array
+          description: animales apadrinados por el usuario
+    UsuarioDetailOutDto:
+      type: object
+      properties:
+        nombre:
+          type: string
+          description: nombre del usuario
+        apellidos:
+          type: string
+          description: Apellidos del usuario
+        dni:
+          type: string
+          description: Dni del usuario
+        email:
+          type: string
+          description: email del usuario
+        fechaNacimiento:
+          type: 'date-time'
+          description: fecha de nacimiento del usuario
+        intencionesApadrinar:
+          type: integer
+          description: número de animales que tiene intención de apadrinar
+        colaborador:
+          type: boolean
+          description: ha colaborado antes con nosotros
+    UsuarioInDto:
+      type: object
+      required: [nombre, apellidos, dni, email, fechaNacimiento, intencionesApadrinar, colaborador]
+      properties:
+        nombre:
+          type: string
+          description: nombre del usuario
+        apellidos:
+          type: string
+          description: Apellidos del usuario
+        dni:
+          type: string
+          description: Dni del usuario
+        email:
+          type: string
+          description: email del usuario
+        fechaNacimiento:
+          type: 'date-time'
+          description: fecha de nacimiento del usuario
+        intencionesApadrinar:
+          type: integer
+          description: número de animales que tiene intención de apadrinar
+        colaborador:
+          type: boolean
+          description: ha colaborado antes con nosotros
+    UsuarioOutDto:
+      type: object
+      properties:
+        nombre:
+          type: string
+          description: nombre del usuario
+        apellidos:
+          type: string
+          description: Apellidos del usuario
+        dni:
+          type: string
+          description: Dni del usuario
+        email:
+          type: string
+          description: email del usuario
     ErrorResponse:
       type: object
       properties:
