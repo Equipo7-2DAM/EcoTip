@@ -1,0 +1,15 @@
+name: ecotip
+services:
+  db:
+    image: mysql:latest
+    container_name: ecotip-db
+    environment:
+      MYSQL_PORT: 3306
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: ecotip
+      MYSQL_PASSWORD: ecotip
+      MYSQL_DATABASE: ecotip-db
+    ports:
+      - "3306:3306"
+    volumes:
+      - C:\Users\S2-PC00\Desktop\datos_ecotip:/var/lib/mysql
