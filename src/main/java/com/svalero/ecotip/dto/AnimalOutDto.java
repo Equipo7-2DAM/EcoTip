@@ -10,6 +10,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AnimalOutDto {
+    private long id;
     private String nombre;
     private String especie;
     private float peso;

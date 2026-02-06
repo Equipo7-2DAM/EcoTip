@@ -1,9 +1,8 @@
 package com.svalero.ecotip.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -31,8 +30,9 @@ public class Usuario {
     private boolean colaborador;
     @Column(name = "fecha_nacimiento")
     private LocalDate fechaNacimiento;
-    @Column(name = "intenciones_apadrinar")
-    private Integer intencionesApadrinar;
+    @Column
+    private Float donativo;
+
 
     @ManyToMany(mappedBy = "usuarios")
     private List<Animal> animales = new ArrayList<>();

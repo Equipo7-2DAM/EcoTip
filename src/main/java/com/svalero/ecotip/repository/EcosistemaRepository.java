@@ -1,4 +1,5 @@
 package com.svalero.ecotip.repository;
+import com.svalero.ecotip.dto.EcosistemaOutDto;
 import com.svalero.ecotip.model.Ecosistema;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.NativeQuery;
@@ -11,4 +12,5 @@ import java.util.List;
 @Repository
 public interface EcosistemaRepository extends CrudRepository<Ecosistema, Long>, JpaSpecificationExecutor<Ecosistema>{
     List<Ecosistema> findAll();
+
 }
