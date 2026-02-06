@@ -23,8 +23,6 @@ public class Animal {
     private String especie;
     @Column
     private float peso;
-    @Column
-    private float altura;
     @Column(name = "en_peligro")
     private boolean EnPeligro;
     @Column(name = "fecha_avistamiento")

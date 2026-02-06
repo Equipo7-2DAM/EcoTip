@@ -9,11 +9,10 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AnimalDetailDto {
+public class AnimalDetailOutDto {
     private String nombre;
     private String especie;
     private float peso;
-    private float altura;
     private boolean EnPeligro;
     private EcosistemaOutDto ecosistemaOutDto;
     private UsuarioOutDto usuarioOutDto;
