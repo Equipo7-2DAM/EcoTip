@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -30,9 +31,7 @@ public class Usuario {
     private boolean colaborador;
     @Column(name = "fecha_nacimiento")
     private LocalDate fechaNacimiento;
-    @Column(name = "intenciones_apadrinar")
-    private int intencionesApadrinar;
 
-    @OneToMany(mappedBy = "animal")
-    private List<Animal> animales;
+    @ManyToMany(mappedBy = "usuarios")
+    private List<Animal> animales = new ArrayList<>();
 }

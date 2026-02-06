@@ -10,4 +10,5 @@ import java.util.List;
 
 @Repository
 public interface EcosistemaRepository extends CrudRepository<Ecosistema, Long>, JpaSpecificationExecutor<Ecosistema>{
+    List<Ecosistema> findAll();
 }

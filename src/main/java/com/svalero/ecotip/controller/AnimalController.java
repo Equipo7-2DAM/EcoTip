@@ -3,7 +3,6 @@ package com.svalero.ecotip.controller;
 import com.svalero.ecotip.dto.AnimalDetailOutDto;
 import com.svalero.ecotip.dto.AnimalInDto;
 import com.svalero.ecotip.dto.AnimalOutDto;
-import com.svalero.ecotip.dto.EcosistemaDetailOutDto;
 import com.svalero.ecotip.exception.AnimalNotFoundException;
 import com.svalero.ecotip.exception.EcosistemaNotFoundException;
 import com.svalero.ecotip.exception.ErrorResponse;
@@ -53,7 +52,7 @@ public class AnimalController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<AnimalDetailOutDto> modifyAnimal(@Valid @RequestBody AnimalInDto animalInDto, @PathVariable long id) throws AnimalNotFoundException, AutoescuelaNotFoundException {
+    public ResponseEntity<AnimalDetailOutDto> modifyAnimal(@Valid @RequestBody AnimalInDto animalInDto, @PathVariable long id) throws AnimalNotFoundException {
 
         AnimalDetailOutDto animalUpdated = animalService.modify(id, animalInDto);
 
