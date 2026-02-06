@@ -14,7 +14,6 @@ public class AnimalInDto {
     private String nombre;
     private String especie;
     private float peso;
-    private float altura;
     private boolean EnPeligro;
     private LocalDate fechaAvistamiento;
     private  boolean apadrinado;
