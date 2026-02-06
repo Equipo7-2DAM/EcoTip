@@ -23,5 +23,5 @@ public class AnimalInDto {
     @NotBlank(message = "Fecha is mandatory")
     private LocalDate fechaAvistamiento;
     @NotBlank(message = "Apadrinado condition is mandatory")
-    private  boolean apadrinado;
+    private boolean apadrinado;
 }

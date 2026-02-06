@@ -8,6 +8,7 @@ servers:
 paths:
   /ecosistemas:
     get:
+      summary: Get Ecosistemas
       description: Optional extended description in Markdown.
       responses:
         200:
@@ -17,7 +18,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Response200'
+                  $ref: '#/components/schemas/Ecosistema'
         500:
           description: Server error
           content:
@@ -25,13 +26,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error500'
     post:
+      summary: Create Ecosistema
       description: Sube un ecosistema nuevo
       requestBody:
         description: Datos de ecosistema
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/EcosistemaOutDto'
+              $ref: '#/components/schemas/EcosistemaInDto'
       responses:
         201:
           description: Ecosistema creado
@@ -41,6 +43,7 @@ paths:
                 $ref: '#/components/schemas/Response201'
   /ecosistemas/{id}:
     get:
+      summary: Get Ecosistema
       description: Devuelve ecosistema por id
       responses:
         200:
@@ -56,7 +59,30 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error404'
     put:
+      summary: Update Ecosistema
       description: Devuelve y edita ecosistema por id
+      requestBody:
+        description: Datos de ecosistema
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EcosistemaInDto'
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EcosistemaInDto'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+    delete:
+      summary: Delete Ecosistema
+      description: Borra ecosistema por id
       responses:
         200:
           description: Ok
@@ -70,14 +96,100 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error404'
-
-
-
-
+  /animales:
+    get:
+      summary: Get Animales
+      description: Devuelve lista de animales
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Animal'
+        500:
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+    post:
+      summary: Create Animal
+      description: Sube un animal nuevo
+      requestBody:
+        description: Datos de animal
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnimalInDto'
+      responses:
+        201:
+          description: Animal creado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response201'
+  /animales/{id}:
+    get:
+      summary: Get Animal
+      description: Devuelve animal por id
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnimalDetailOutDto'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+    put:
+      summary: Update Animal
+      description: Devuelve y edita animal por id
+      requestBody:
+        description: Datos de animal
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnimalInDto'
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response200'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+    delete:
+      summary: Delete Animal
+      description: Borra animal por id
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response200'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
 components:
   schemas:
     Ecosistema:
-      type: object;
+      type: object
       properties:
         id:
           type: long
@@ -99,11 +211,11 @@ components:
           format: "date-time"
           description: fecha donde el ecosistema fue dado de alta
     EcosistemaDetailOutDto:
-      type: object;
+      type: object
       properties:
         id:
-          type: long
           description: identificador de ecosistema
+          type: long
         nombre:
           type: string
           description: nombre del ecosistema
@@ -124,7 +236,7 @@ components:
           format: "date-time"
           description: fecha donde el ecosistema fue dado de alta
     EcosistemaInDto:
-      type: object;
+      type: object
       required: [nombre, descripcion, temperaturaMedia, active createdAt]
       properties:
         nombre:
@@ -144,7 +256,7 @@ components:
           format: "date-time"
           description: fecha donde el ecosistema fue dado de alta
     EcosistemaOutDto:
-      type: object;
+      type: object
       properties:
         id:
           type: long
@@ -155,6 +267,97 @@ components:
         descripcion:
           type: string
           description: Descripción del ecosistema
+    Animal:
+      type: object
+      properties:
+        id:
+          type: long
+          description: identificador de animal
+        nombre:
+          type: string
+          description: nombre del animal
+        especie:
+          type: string
+          description: Especie del animal
+        peso:
+          type: float
+          description: Temperatura media registrada en el animal
+        EnPeligro:
+          type: boolean
+          description: Está en peligro
+        fechaAvistamiento:
+          type: date
+          format: "date-time"
+          description: fecha donde el animal fue avistado por primera vez
+        apadrinado:
+          type: boolean
+          description: si el animal está apadrinado o no
+    AnimalDetailOutDto:
+      type: object
+      properties:
+        id:
+          description: identificador de animal
+          type: long
+        nombre:
+          type: string
+          description: nombre del animal
+        especie:
+          type: string
+          description: Especie del animal
+        peso:
+          type: float
+          description: Temperatura media registrada en el animal
+        EnPeligro:
+          type: boolean
+          description: Está en peligro
+        EcosistemaOutDto:
+          type: object
+          description: Ecosistema que pertenece
+        UsuarioOutDto:
+          type: object
+          description: Usuario que lo apadrinó
+        fechaAvistamiento:
+          type: date
+          format: "date-time"
+          description: fecha donde el animal fue avistado por primera vez
+    AnimalInDto:
+      type: object
+      required: [nombre, descripcion, temperaturaMedia, active createdAt]
+      properties:
+        nombre:
+          type: string
+          description: nombre del animal
+        especie:
+          type: string
+          description: Especie del animal
+        peso:
+          type: float
+          description: Temperatura media registrada en el animal
+        EnPeligro:
+          type: boolean
+          description: Está en peligro
+        fechaAvistamiento:
+          type: date
+          format: "date-time"
+          description: fecha donde el animal fue avistado por primera vez
+        apadrinado:
+          type: boolean
+          description: si el animal está apadrinado o no
+    AnimalOutDto:
+      type: object
+      properties:
+        nombre:
+          type: string
+          description: nombre del animal
+        especie:
+          type: string
+          description: Especie del animal
+        peso:
+          type: float
+          description: Temperatura media registrada en el animal
+        apadrinado:
+          type: boolean
+          description: si el animal está apadrinado o no
     ErrorResponse:
       type: object
       properties:

@@ -13,5 +13,5 @@ public class AnimalOutDto {
     private String nombre;
     private String especie;
     private float peso;
-    private float altura;
+    private boolean apadrinado;
 }
