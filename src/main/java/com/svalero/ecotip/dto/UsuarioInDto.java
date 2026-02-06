@@ -22,7 +22,6 @@ public class UsuarioInDto {
     @NotBlank(message = "Email is mandatory")
     private String email;
     @Past(message = "Date has to be in the past")
-    @NotBlank(message = "Date of birth is mandatory")
     private LocalDate fechaNacimiento;
     @NotNull(message = "is mandatory")
     private boolean colaborador;
