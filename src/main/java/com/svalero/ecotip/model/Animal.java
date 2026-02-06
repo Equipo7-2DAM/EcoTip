@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -30,9 +32,17 @@ public class Animal {
     @Column
     private  boolean apadrinado;
 
-    /*@ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ecosistema_id")
-    private Ecosistema ecosistema;*/
+    private Ecosistema ecosistema;
+
+    @ManyToMany
+    @JoinTable(
+            name = "animales_apadrinados",
+            joinColumns = @JoinColumn(name = "animal_id"),
+            inverseJoinColumns = @JoinColumn(name = "usuario_id")
+    )
+    private List<Usuario> usuarios = new ArrayList<>();
 
 
 }

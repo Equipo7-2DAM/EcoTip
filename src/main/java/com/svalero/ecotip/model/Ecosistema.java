@@ -28,6 +28,6 @@ public class Ecosistema {
     @Column(name = "created_at")
     private LocalDate createdAt;
 
-    @OneToMany(mappedBy = "animal")
+    @OneToMany(mappedBy = "ecosistema")
     private List<Animal> animales;
 }
