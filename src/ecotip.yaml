@@ -1,0 +1,198 @@
+openapi: 3.0.1
+info:
+  title: Sample API
+  description: API description in Markdown.
+  version: 1.0.0
+servers:
+  - url: 'https://api.example.com'
+paths:
+  /ecosistemas:
+    get:
+      description: Optional extended description in Markdown.
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Response200'
+        500:
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+    post:
+      description: Sube un ecosistema nuevo
+      requestBody:
+        description: Datos de ecosistema
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EcosistemaOutDto'
+      responses:
+        201:
+          description: Ecosistema creado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response201'
+  /ecosistemas/{id}:
+    get:
+      description: Devuelve ecosistema por id
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EcosistemaDetailOutDto'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+    put:
+      description: Devuelve y edita ecosistema por id
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response200'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+
+
+
+
+components:
+  schemas:
+    Ecosistema:
+      type: object;
+      properties:
+        id:
+          type: long
+          description: identificador de ecosistema
+        nombre:
+          type: string
+          description: nombre del ecosistema
+        descripcion:
+          type: string
+          description: Descripción del ecosistema
+        temperaturaMedia:
+          type: float
+          description: Temperatura media registrada en el ecosistema
+        active:
+          type: boolean
+          description: Está permitido apadrinar de aqui
+        createdAt:
+          type: date
+          format: "date-time"
+          description: fecha donde el ecosistema fue dado de alta
+    EcosistemaDetailOutDto:
+      type: object;
+      properties:
+        id:
+          type: long
+          description: identificador de ecosistema
+        nombre:
+          type: string
+          description: nombre del ecosistema
+        descripcion:
+          type: string
+          description: Descripción del ecosistema
+        temperaturaMedia:
+          type: float
+          description: Temperatura media registrada en el ecosistema
+        animales:
+          type: List
+          description: lista de animales pertenecientes a ese ecosistema
+        active:
+          type: boolean
+          description: Está permitido apadrinar de aqui
+        createdAt:
+          type: date
+          format: "date-time"
+          description: fecha donde el ecosistema fue dado de alta
+    EcosistemaInDto:
+      type: object;
+      required: [nombre, descripcion, temperaturaMedia, active createdAt]
+      properties:
+        nombre:
+          type: string
+          description: nombre del ecosistema
+        descripcion:
+          type: string
+          description: Descripción del ecosistema
+        temperaturaMedia:
+          type: float
+          description: Temperatura media registrada en el ecosistema
+        active:
+          type: boolean
+          description: Está permitido apadrinar de aqui
+        createdAt:
+          type: date
+          format: "date-time"
+          description: fecha donde el ecosistema fue dado de alta
+    EcosistemaOutDto:
+      type: object;
+      properties:
+        id:
+          type: long
+          description: identificador de ecosistema
+        nombre:
+          type: string
+          description: nombre del ecosistema
+        descripcion:
+          type: string
+          description: Descripción del ecosistema
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: numbre
+          format: int
+          description: código de estado
+        title:
+          type: string
+          description: título
+        message:
+          type: string
+          description: body mesage
+    Error404:
+      allOf:
+        - $ref: '#/components/schemas/ErrorResponse'
+      example:
+        code: 404
+        title: Not Found
+        message: Resource Not Found🥀😥
+    Response200:
+      allOf:
+        - $ref: '#/components/schemas/ErrorResponse'
+      example:
+        code: 200
+        title: Ok
+        message: ¡Se completó con éxito!🥵
+    Response201:
+      allOf:
+        - $ref: '#/components/schemas/ErrorResponse'
+      example:
+        code: 201
+        title: Created
+        message: ¡Se completó con éxito!🗿
+    Error500:
+      allOf:
+        - $ref: '#/components/schemas/ErrorResponse'
+      example:
+        code: 500
+        title: InternalError
+        message: Internal Server Error💀
