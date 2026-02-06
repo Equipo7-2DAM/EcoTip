@@ -1,10 +1,13 @@
 package com.svalero.ecotip.service;
 
 import com.svalero.ecotip.dto.*;
+import com.svalero.ecotip.exception.AnimalNotFoundException;
 import com.svalero.ecotip.exception.EcosistemaNotFoundException;
 import com.svalero.ecotip.exception.UsuarioNotFoundException;
+import com.svalero.ecotip.model.Animal;
 import com.svalero.ecotip.model.Ecosistema;
 import com.svalero.ecotip.model.Usuario;
+import com.svalero.ecotip.repository.AnimalRepository;
 import com.svalero.ecotip.repository.EcosistemaRepository;
 import com.svalero.ecotip.repository.UsuarioRepository;
 import org.modelmapper.ModelMapper;
@@ -12,6 +15,7 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,14 +24,25 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
     @Autowired
+    private AnimalRepository animalRepository;
+    @Autowired
     private ModelMapper modelMapper;
 
-    public UsuarioDetailOutDto add(UsuarioInDto usuarioInDto){
-        Usuario usuario = modelMapper.map(usuarioInDto, Usuario.class);
+    public UsuarioDetailOutDto add(UsuarioInDto dto) throws AnimalNotFoundException {
 
-        Usuario u = usuarioRepository.save(usuario);
-        return modelMapper.map(u, UsuarioDetailOutDto.class);
+        Animal animal = animalRepository.findById(dto.getAnimalId())
+                .orElseThrow(AnimalNotFoundException::new);
+
+        Usuario usuario = modelMapper.map(dto, Usuario.class);
+
+        usuario.getAnimales().add(animal);
+        animal.getUsuarios().add(usuario);
+
+        Usuario saved = usuarioRepository.save(usuario);
+
+        return modelMapper.map(saved, UsuarioDetailOutDto.class);
     }
+
 
 
     public void delete( long id ) throws UsuarioNotFoundException {
@@ -49,9 +64,10 @@ public class UsuarioService {
                 .orElseThrow(UsuarioNotFoundException::new);
     }
 
-    public UsuarioDetailOutDto modify(long id, UsuarioInDto usuarioInDto) throws UsuarioNotFoundException {
+    public UsuarioDetailOutDto modify(long id, UsuarioInDto usuarioInDto) throws UsuarioNotFoundException, AnimalNotFoundException {
         Usuario u = usuarioRepository.findById(id)
                 .orElseThrow(UsuarioNotFoundException::new);
+        Animal a = animalRepository.findById(usuarioInDto.getAnimalId()).orElseThrow(AnimalNotFoundException::new);
 
         u.setNombre(usuarioInDto.getNombre());
         u.setApellidos(usuarioInDto.getApellidos());
@@ -59,7 +75,12 @@ public class UsuarioService {
         u.setFechaNacimiento(usuarioInDto.getFechaNacimiento());
         u.setEmail(usuarioInDto.getEmail());
         u.setColaborador(usuarioInDto.isColaborador());
-        u.setIntencionesApadrinar(usuarioInDto.getIntencionesApadrinar());
+        u.setDonativo(usuarioInDto.getDonativo());
+
+        if (!u.getAnimales().contains(a)) {
+            u.getAnimales().add(a);
+            a.getUsuarios().add(u);
+        }
 
 
         Usuario usuario = usuarioRepository.save(u);

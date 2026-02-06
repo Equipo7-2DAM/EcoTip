@@ -23,10 +23,10 @@ public class UsuarioInDto {
     private String email;
     @Past(message = "Date has to be in the past")
     private LocalDate fechaNacimiento;
-    @NotNull(message = "is mandatory")
     private boolean colaborador;
-    @PositiveOrZero(message = "Desired number of adoptions must be positive")
-    @NotNull(message = "Desired number of adoptions is mandatory")
-    private int intencionesApadrinar;
+    @NotNull(message = "n")
+    private Float donativo;
+    @NotNull(message = "animal_id")
+    private long animalId;
 
 }

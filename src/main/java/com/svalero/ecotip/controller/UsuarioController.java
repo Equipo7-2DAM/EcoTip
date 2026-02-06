@@ -3,6 +3,7 @@ package com.svalero.ecotip.controller;
 import com.svalero.ecotip.dto.UsuarioDetailOutDto;
 import com.svalero.ecotip.dto.UsuarioInDto;
 import com.svalero.ecotip.dto.UsuarioOutDto;
+import com.svalero.ecotip.exception.AnimalNotFoundException;
 import com.svalero.ecotip.exception.ErrorResponse;
 import com.svalero.ecotip.exception.UsuarioNotFoundException;
 import com.svalero.ecotip.service.UsuarioService;
@@ -39,7 +40,7 @@ public class UsuarioController {
 
 
     @PostMapping("")
-    public ResponseEntity<UsuarioDetailOutDto> addUsuario(@Valid @RequestBody UsuarioInDto usuarioInDto)  {
+    public ResponseEntity<UsuarioDetailOutDto> addUsuario(@Valid @RequestBody UsuarioInDto usuarioInDto) throws AnimalNotFoundException {
 
         UsuarioDetailOutDto nuevoUsuario = usuarioService.add(usuarioInDto);
 
@@ -47,7 +48,7 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UsuarioDetailOutDto> modifyUsuario(@Valid @RequestBody UsuarioInDto usuarioInDto, @PathVariable long id) throws UsuarioNotFoundException {
+    public ResponseEntity<UsuarioDetailOutDto> modifyUsuario(@Valid @RequestBody UsuarioInDto usuarioInDto, @PathVariable long id) throws UsuarioNotFoundException, AnimalNotFoundException {
 
         UsuarioDetailOutDto usuarioUpdated = usuarioService.modify(id, usuarioInDto);
 
