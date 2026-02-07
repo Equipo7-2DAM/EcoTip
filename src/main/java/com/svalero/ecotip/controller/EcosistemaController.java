@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@CrossOrigin(origins = "http://localhost:5173", maxAge = 3600)
+
 @Controller
 @RequestMapping("/ecosistemas")
 public class EcosistemaController {
