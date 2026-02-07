@@ -38,9 +38,9 @@ public class UsuarioService {
         usuario.getAnimales().add(animal);
         animal.getUsuarios().add(usuario);
 
-        Usuario saved = usuarioRepository.save(usuario);
+        Usuario u = usuarioRepository.save(usuario);
 
-        return modelMapper.map(saved, UsuarioDetailOutDto.class);
+        return modelMapper.map(u, UsuarioDetailOutDto.class);
     }
 
 

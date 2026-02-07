@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -16,6 +17,6 @@ public class AnimalDetailOutDto {
     private float peso;
     private boolean EnPeligro;
     private EcosistemaOutDto ecosistema;
-    private UsuarioOutDto usuario;
+    private List<UsuarioOutDto> usuarios;
     private LocalDate fechaAvistamiento;
 }
