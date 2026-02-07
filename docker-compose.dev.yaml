@@ -12,4 +12,6 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - C:\Users\S2-PC00\Desktop\datos_ecotip:/var/lib/mysql
+      - "C:/docker-data/ecotipmysql:/var/lib/mysql"
+
+#      - C:\Users\S2-PC00\Desktop\datos_ecotip:/var/lib/mysql

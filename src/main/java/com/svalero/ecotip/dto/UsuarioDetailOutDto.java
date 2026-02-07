@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -17,5 +18,6 @@ public class UsuarioDetailOutDto {
     private String email;
     private LocalDate fechaNacimiento;
     private boolean colaborador;
-    private int intencionesApadrinar;
+    private Float donativo;
+    private List<AnimalOutDto> animales;
 }

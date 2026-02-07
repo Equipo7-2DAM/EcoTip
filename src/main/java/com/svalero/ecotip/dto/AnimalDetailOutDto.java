@@ -10,11 +10,12 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AnimalDetailOutDto {
+    private long id;
     private String nombre;
     private String especie;
     private float peso;
     private boolean EnPeligro;
-    private EcosistemaOutDto ecosistemaOutDto;
-    private UsuarioOutDto usuarioOutDto;
+    private EcosistemaOutDto ecosistema;
+    private UsuarioOutDto usuario;
     private LocalDate fechaAvistamiento;
 }
